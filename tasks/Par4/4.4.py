@@ -1,5 +1,4 @@
 vlans = [10, 20, 30, 1, 2, 100, 10, 30, 3, 4, 10]
-vlans.remove(10)
-vlans.remove(10)
-vlans.remove(30)
-print(sorted(vlans))
+vlans_temp=set(vlans)                                   ####Делаем из списка множество. Дубли таким образом удалятся
+vlans = list(vlans_temp)                                ####Делаем обратно из множества список(для задания)
+print(sorted(vlans))                                    ####Выводим сортированый список
