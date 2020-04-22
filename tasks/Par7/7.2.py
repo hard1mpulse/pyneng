@@ -1,4 +1,6 @@
-with open('Par7_files/config_sw1.txt','r') as file:
+from sys import argv
+path_to_file='Par7_files/'+argv[1]
+with open(path_to_file,'r') as file:
     for line in file:
         if line.startswith('!'):
             pass
