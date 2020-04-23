@@ -7,7 +7,7 @@ def get_int_vlan_map(filename):
     '''
     access_map={}
     trunk_map={}
-    with open('/home/python/Documents/task_templ/Par9_files/'+filename,'r') as f:
+    with open('Par9_files/'+filename,'r') as f:
         intf_found=False
         intf_type=''
         is_intf_trunk=False
