@@ -16,3 +16,13 @@
 """
 
 mac = "AAAA:BBBB:CCCC"
+
+l_mac=mac.lower().split(":")
+
+intmac=(str(bin(int(l_mac[0][0:2], 16)).replace('0b',''))+
+        str(bin(int(l_mac[0][2:4], 16)).replace('0b',''))+
+        str(bin(int(l_mac[1][0:2], 16)).replace('0b',''))+
+        str(bin(int(l_mac[1][2:4], 16)).replace('0b',''))+
+        str(bin(int(l_mac[2][0:2], 16)).replace('0b',''))+
+        str(bin(int(l_mac[2][2:4], 16)).replace('0b','')))
+print(intmac)

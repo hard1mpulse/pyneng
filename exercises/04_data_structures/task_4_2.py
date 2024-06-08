@@ -15,3 +15,7 @@
 """
 
 mac = "AAAA:BBBB:CCCC"
+
+f_mac=mac.replace(":",".")
+
+print(f_mac)
