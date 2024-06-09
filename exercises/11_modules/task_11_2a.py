@@ -80,3 +80,9 @@ infiles = [
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+
+from task_11_2 import create_network_map
+from draw_network_graph import draw_topology
+
+topology=create_network_map(infiles)
+draw_topology(topology,output_filename='test.svg')
