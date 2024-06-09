@@ -80,9 +80,18 @@ infiles = [
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+def unique_network_map(topology_dict: dict):
+    result= {}
+    for local_int,remote_int in topology_dict.items():
+        if local_int in result.keys() or local_int in result.values():
+            continue
+        else:
+            result.update({local_int:remote_int})
+    return result
 
 from task_11_2 import create_network_map
 from draw_network_graph import draw_topology
 
-topology=create_network_map(infiles)
-draw_topology(topology,output_filename='test.svg')
+
+topology=unique_network_map(create_network_map(infiles))
+draw_topology(topology)
