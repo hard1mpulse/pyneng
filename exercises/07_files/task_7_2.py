@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 Задание 7.2
 
@@ -39,3 +40,12 @@ interface Ethernet0/3
 ...
 
 """
+
+from sys import argv
+
+with open(argv[1]) as file:
+    for line in file:
+        if line.startswith("!"):
+            continue
+        else:
+            print(line.strip("\n"))

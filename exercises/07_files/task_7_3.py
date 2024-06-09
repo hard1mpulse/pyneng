@@ -20,3 +20,9 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+output="{:4}     {:14}      {:4}"
+with open("CAM_table.txt","r") as file:
+    for line in file:
+        if "DYNAMIC" in line:
+            cam=line.split()
+            print(output.format(cam[0],cam[1],cam[3]))

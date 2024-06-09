@@ -14,3 +14,15 @@ Outbound Interface    FastEthernet0/0
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+route=[]
+
+with open("ospf.txt","r") as file:
+    for line in file:
+        route=line.split()
+        print(f"""
+Prefix                {route[1]}
+AD/Metric             {route[2].strip("[]")}
+Next-Hop              {route[4].strip(",")}
+Last update           {route[5].strip(",")}
+Outbound Interface    {route[6]}
+""")

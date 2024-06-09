@@ -40,3 +40,16 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+output="{:<4}     {:<14}      {:<4}"
+result=[]
+with open("CAM_table.txt","r") as file:
+    for line in file:
+        if "DYNAMIC" in line:
+            cam=line.split()
+            cam.remove("DYNAMIC")
+            cam.insert(0,int(cam.pop(0)))
+            result.append(cam)
+result.sort()
+for cam in result:
+    print(output.format(cam[0],cam[1],cam[2]))
