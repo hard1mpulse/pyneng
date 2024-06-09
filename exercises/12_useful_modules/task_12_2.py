@@ -35,13 +35,26 @@
 
 """
 def convert_ranges_to_ip_list(range_list: list):
+    import ipaddress
     result=[]
     for ip_range in range_list:
         if "-" not in ip_range:
             result.append(ip_range)
         elif "-" in ip_range.split(".")[-1]:
-            prefix=ip_range.split(".")
-            range_list=ip_range.split(".").pop(-1).split('-')
-            for i in range(int(range_list[0]),int(range_list[1])+1):
-                result.append('.')
+            first_ip=ipaddress.ip_address(ip_range.split("-")[0])
+            last_ip_list=ip_range.split(".")
+            last_ip_list.pop(-1)
+            last_ip=ipaddress.ip_address('.'.join(last_ip_list)+"."+ip_range.split("-")[-1])
+            ip=first_ip
+            while ip <= last_ip:
+                result.append(str(ip))
+                ip=ip+1
+        else:
+            first_ip=ipaddress.ip_address(ip_range.split("-")[0])
+            last_ip=ipaddress.ip_address(ip_range.split("-")[1])
+            ip=first_ip
+            while ip <= last_ip:
+                result.append(str(ip))
+                ip = ip + 1
+    return result
 
