@@ -24,3 +24,10 @@
 а не ввод пользователя.
 
 """
+def get_ip_from_cfg(filename: str):
+    result=[]
+    import re
+    f=open(filename).read()
+    for ip_addr in re.findall(r'ip address (\d+.\d+.\d+.\d \d+.\d+.\d+.\d+)',f):
+        result.append(tuple(ip_addr.split(" ")))
+    return result
