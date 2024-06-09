@@ -64,3 +64,22 @@ def ignore_command(command, ignore):
         if word in command:
             ignore_status = True
     return ignore_status
+
+def convert_config_to_dict(config_filename: str):
+    result={}
+    with open(config_filename,'r') as file:
+        for line in file:
+            if line.startswith('!') or line=="\n":
+                continue
+            elif not line.startswith(' '):
+                command=line.strip("\n")
+                subcommands=[]
+                if not ignore_command(command,ignore):
+                    result.update({command:subcommands})
+            else:
+                if not ignore_command(line.strip("\n "), ignore):
+                    subcommands.append(line.strip("\n "))
+    return result
+# print(convert_config_to_dict("config_sw1.txt"))
+import pprint
+pprint.pp(convert_config_to_dict("config_sw1.txt"))
