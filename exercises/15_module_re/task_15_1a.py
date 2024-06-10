@@ -25,9 +25,12 @@
 
 """
 def get_ip_from_cfg(filename: str):
-    result=[]
+    result={}
     import re
     f=open(filename).read()
-    for ip_addr in re.findall(r'ip address (\d+.\d+.\d+.\d \d+.\d+.\d+.\d+)',f):
-        result.append(tuple(ip_addr.split(" ")))
+    for intf_config in re.findall(r'interface (\S+)[^!]*?ip address (\d+.\d+.\d+.\d \d+.\d+.\d+.\d+)',f,re.DOTALL):
+        result.update({intf_config[0] : tuple(intf_config[1].split(" "))})
     return result
+
+from pprint import pp
+pp(get_ip_from_cfg('config_r1.txt'))
