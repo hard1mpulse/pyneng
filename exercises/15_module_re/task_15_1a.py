@@ -28,6 +28,6 @@ def get_ip_from_cfg(filename: str):
     result={}
     import re
     with open(filename) as f:
-        for intf_config in re.findall(r'interface (\S+)[^!]ё*?ip address (\d+.\d+.\d+.\d \d+.\d+.\d+.\d+)',f.read(),re.DOTALL):
+        for intf_config in re.findall(r'interface (\S+)[^!]*?ip address (\d+.\d+.\d+.\d \d+.\d+.\d+.\d+)',f.read(),re.DOTALL):
             result.update({intf_config[0] : tuple(intf_config[1].split(" "))})
     return result
