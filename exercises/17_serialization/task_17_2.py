@@ -46,6 +46,40 @@
 import glob
 
 sh_version_files = glob.glob("sh_vers*")
-# print(sh_version_files)
+
 
 headers = ["hostname", "ios", "image", "uptime"]
+
+def parse_sh_version(sh_version_str: str):
+    import re,pprint
+    version_pattern = re.compile(r"Version (\d+\.\d+\(\d+\)\w+),")
+    uptime_pattern = re.compile(r"router uptime is (.+)")
+    image_pattern = re.compile(r"System image file is \"([^\"]+)\"")
+    version_matches = version_pattern.search(sh_version_str)
+    if version_matches:
+        ios_version = version_matches.group(1)
+    uptime_matches = uptime_pattern.search(sh_version_str)
+    if uptime_matches:
+        uptime = uptime_matches.group(1)
+    image_matches = image_pattern.search(sh_version_str)
+    if image_matches:
+        system_image = image_matches
+    print(version_matches.group(1),image_matches.group(1),uptime_matches.group(1))
+    return (version_matches.group(1),image_matches.group(1),uptime_matches.group(1))
+def write_inventory_to_csv(data_filenames,csv_filename):
+    import csv,re
+    dev_pattern=re.compile(r'sh_version_(\w+)\.txt')
+    with open(csv_filename, 'w', newline="") as result_file:
+        result=[]
+        for data_file in data_filenames:
+            device={"hostname" : dev_pattern.match(data_file).group(1)}
+            data=list(parse_sh_version(open(data_file).read()))
+            device.update({"ios" : data[0],"image" : data[1],"uptime" : data[2]})
+            result.append(device)
+        writer = csv.DictWriter(result_file,fieldnames=list(result[0].keys()),quoting=csv.QUOTE_NONNUMERIC)
+        writer.writeheader()
+        for dev in result:
+            writer.writerow(dev)
+
+if __name__ == "__main__" :
+    write_inventory_to_csv(sh_version_files,"routers_inventory.csv")
